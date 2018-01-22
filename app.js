@@ -16,7 +16,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/books', express.static(path.join(__dirname, 'dist')));
 app.use('/book', book);
 mongoose.Promise = require('bluebird');
-mongoose.connect('mongodb://127.0.0.1:27017/meanSW', { useMongoClient: true, promiseLibrary: require('bluebird') })
+mongoose.connect('mongodb:mongodb://nivedita:nivedita@ds111598.mlab.com:11598/swtestdb', { useMongoClient: true, promiseLibrary: require('bluebird') })
   .then(() =>  console.log('connection succesful'))
   .catch((err) => console.log('Mongoose default connection error: ' + err.stack));
 
