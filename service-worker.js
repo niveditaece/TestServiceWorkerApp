@@ -7,9 +7,7 @@ importScripts('workbox-cacheable-response.dev.v2.0.3.js')
 importScripts('workbox-background-sync.dev.v2.0.3.js')
 
 
-const workboxSW = new WorkboxSW({
-  precacheChannelName: 'pwatter-channel'
-})
+const workboxSW = new WorkboxSW();
 workboxSW.precache([])
 
 // Background sync
@@ -17,11 +15,11 @@ workboxSW.precache([])
 let syncQueue = new workbox.backgroundSync.QueuePlugin({
   callbacks: {
     replayDidSucceed: async(hash, res) => {
-      self.registration.showNotification('PWAtter', {
-        body: 'Tweet was posted',
+      self.registration.showNotification('MEANSW', {
+        body: 'Book Created',
         icon: '/assets/images/logo.png',
       })
-      console.log('[SW] Tweet was posted')
+      console.log('[SW] Book was created')
     },
     replayDidFail: (hash) => {},
     requestWillEnqueue: (reqData) => {
@@ -33,19 +31,19 @@ let syncQueue = new workbox.backgroundSync.QueuePlugin({
   },
 })
 
-const postTweetRequestWrapper = new workbox.runtimeCaching.RequestWrapper({
+const postBookRequestWrapper = new workbox.runtimeCaching.RequestWrapper({
   plugins: [
     syncQueue
   ]
 })
 
-const postTweetCacheStrategy = new workbox.runtimeCaching.NetworkOnly({
-  requestWrapper: postTweetRequestWrapper
+const postBookCacheStrategy = new workbox.runtimeCaching.NetworkOnly({
+  requestWrapper: postBookRequestWrapper
 })
 
-const postTweetRoute = new workbox.routing.RegExpRoute({
-  regExp: /(http?:\/\/)?([^\/\s]+\/)book/,
-  handler: postTweetCacheStrategy,
+const postBookRoute = new workbox.routing.RegExpRoute({
+  regExp: /(http[s]?:\/\/)?([^\/\s]+\/)(http[s]?:\/\/)?([^\/\s]+\/)book/,
+  handler: postBookCacheStrategy,
   method: 'POST'
 })
 
@@ -53,8 +51,9 @@ const postTweetRoute = new workbox.routing.RegExpRoute({
 // Setting up custom router
 
 const router = new workbox.routing.Router();
+console.log('[SW] Register router');
 router.registerRoutes({
-  routes: [postTweetRoute]
+  routes: [postBookRoute]
 });
 router.addFetchListener();
 
