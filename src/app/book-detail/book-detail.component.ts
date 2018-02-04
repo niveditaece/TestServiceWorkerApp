@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Http } from '@angular/http';
 import { ActivatedRoute, Router  } from '@angular/router';
 
 @Component({
@@ -12,7 +13,7 @@ export class BookDetailComponent implements OnInit {
 
   book: any = {};
 
-  constructor(private router: Router,private route: ActivatedRoute, private http: HttpClient) { }
+  constructor(private router: Router,private route: ActivatedRoute, private http: Http) { }
 
   ngOnInit() {
     this.getBookDetail(this.route.snapshot.params['id']);
