@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Book = require('../models/Book.js');
-
+var API_URL = 'https://evening-temple-66423.herokuapp.com';
 /* GET ALL BOOKS */
 router.get('/', function(req, res, next) {
   Book.find(function (err, products) {
