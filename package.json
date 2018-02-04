@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng build && node ./bin/www",
+    "build-full-workbox-default": "ng build && node ./bin/www",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -12,7 +12,7 @@
     "build-prod": "ng build --prod --output-hashing=false",
     "build-sw-workbox": "node build-sw-workbox.js",
     "build-full-workbox": "npm run build-prod && npm run build-sw-workbox",
-    "build-full-workbox-default": "npm run build-prod && npm run generate-service-worker",
+    "start": "npm run build-prod && npm run generate-service-worker",
     "generate-service-worker": "node generate-service-worker.js"
   },
   "private": true,
